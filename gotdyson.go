@@ -96,7 +96,26 @@ func main() {
 
 			frame.temperature = floatValue / 10
 
-			log.Printf("Received %f as temperature.\n", frame.temperature)
+			floatValue, err = strconv.ParseFloat(sensorData.Data.Vact, 64)
+			if err != nil {
+				log.Printf("Could not convert sensor data from %s: %s.\n", msg.Payload(), err)
+			}
+
+			frame.volatileOrganicCompounds = floatValue
+
+			floatValue, err = strconv.ParseFloat(sensorData.Data.Hact, 64)
+			if err != nil {
+				log.Printf("Could not convert sensor data from %s: %s.\n", msg.Payload(), err)
+			}
+
+			frame.humidity = floatValue
+
+			floatValue, err = strconv.ParseFloat(sensorData.Data.Pact, 64)
+			if err != nil {
+				log.Printf("Could not convert sensor data from %s: %s.\n", msg.Payload(), err)
+			}
+
+			frame.dust = floatValue
 
 			collector.Update(*frame)
 		}

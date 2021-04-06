@@ -34,4 +34,40 @@ var metricBuilders = map[string]MetricBuilder{
 			return frame.temperature
 		},
 	},
+	"dust": MetricBuilder{
+		ValueType: prometheus.GaugeValue,
+		Desc: prometheus.NewDesc(
+			namespace+"_dust",
+			"Dust reading from Dyson",
+			defaultLabels,
+			prometheus.Labels{},
+		),
+		Extractor: func(frame *Frame) float64 {
+			return frame.dust
+		},
+	},
+	"volatileCompounds": MetricBuilder{
+		ValueType: prometheus.GaugeValue,
+		Desc: prometheus.NewDesc(
+			namespace+"_volatile_organic_compounds_ug_ft3",
+			"Volatile organic compounds reading from Dyson in micrograms per foot cubed",
+			defaultLabels,
+			prometheus.Labels{},
+		),
+		Extractor: func(frame *Frame) float64 {
+			return frame.volatileOrganicCompounds
+		},
+	},
+	"humidity": MetricBuilder{
+		ValueType: prometheus.GaugeValue,
+		Desc: prometheus.NewDesc(
+			namespace+"_humidity_p",
+			"Humidity reading from Dyson in percent",
+			defaultLabels,
+			prometheus.Labels{},
+		),
+		Extractor: func(frame *Frame) float64 {
+			return frame.humidity
+		},
+	},
 }
